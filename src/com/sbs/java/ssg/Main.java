@@ -6,14 +6,14 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("== 프로그램 시작 ==");
+		System.out.println("=== 프로그램 시작 ===");
 		Scanner sc = new Scanner(System.in);
 
 		int lastArticleId = 0;
 		List<Article> articles = new ArrayList<>();
 
 		while (true) {
-			System.out.printf("명령어) ");
+			System.out.printf("명령어 입력 : ");
 			String command = sc.nextLine();
 			command = command.trim();
 
@@ -45,26 +45,24 @@ public class Main {
 				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article article = articles.get(i);
 
-					System.out.printf("%3d, %s\n", article.id, article.title);
+					System.out.printf("%2d, %s\n", article.id, article.title);
 				}
 			} else if (command.startsWith("article detail")) {
 				String[] commandBits = command.split(" ");
 				int id = Integer.parseInt(commandBits[2]);
 
-				boolean found = false;
 				Article foundArticle = null;
 
 				for (int i = 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
 
 					if (article.id == id) {
-						found = true;
 						foundArticle = article;
 						break;
 					}
 				}
 
-				if (found == false) {
+				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않는 게시물입니다.\n", id);
 					continue;
 				}
@@ -75,12 +73,12 @@ public class Main {
 			}
 
 			else {
-				System.out.printf("%s(은)는 존재하지 않는 명령어 입니다.\n", command);
+				System.out.printf("%s(은)는 존재하지 않는 명령어입니다.\n", command);
 			}
 		}
 
 		sc.close();
-		System.out.println("== 프로그램 끝 ==");
+		System.out.println("=== 프로그램 끝 ===");
 	}
 }
 
