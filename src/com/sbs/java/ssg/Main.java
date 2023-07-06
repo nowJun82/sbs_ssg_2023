@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+	private static List<Article> articles;
+	
+	static {
+		articles = new ArrayList<>();
+	}
+	
 	public static void main(String[] args) {
 		System.out.println("=== 프로그램 시작 ===");
+		makeTestData();	// 테스트 게시물 3개 작성
 		Scanner sc = new Scanner(System.in);
-
-		int lastArticleId = 0;
-		List<Article> articles = new ArrayList<>();
 
 		while (true) {
 			System.out.printf("명령어 입력 : ");
@@ -24,8 +28,7 @@ public class Main {
 			if (command.equals("system exit")) {
 				break;
 			} else if (command.equals("article write")) {
-				int id = lastArticleId + 1;
-				lastArticleId = id;
+				int id = articles.size() + 1;
 				System.out.printf("제목 : ");
 				String title = sc.nextLine();
 				System.out.printf("내용 : ");
@@ -135,6 +138,13 @@ public class Main {
 		sc.close();
 		System.out.println("=== 프로그램 끝 ===");
 	}
+	private static void makeTestData() {
+		System.out.println("테스트를 위한 데이터를 생성합니다.");
+		
+		articles.add(new Article(1, Util.getNowDateStr(), "제목1", "내용1", 10));
+		articles.add(new Article(2, Util.getNowDateStr(), "제목2", "내용2", 22));
+		articles.add(new Article(3, Util.getNowDateStr(), "제목3", "내용3", 33));
+	}
 }
 
 class Article {
@@ -145,11 +155,14 @@ class Article {
 	int hit;
 
 	public Article(int id, String regDate, String title, String body) {
+		this(id, regDate, title, body, 0);
+	}
+	public Article(int id, String regDate, String title, String body, int hit) {
 		this.id = id;
 		this.regDate = regDate;
 		this.title = title;
 		this.body = body;
-		this.hit = 0;
+		this.hit = hit;
 	}
 	
 	public void increaseHit () {
