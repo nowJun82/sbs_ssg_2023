@@ -7,13 +7,38 @@ import java.util.Scanner;
 import com.sbs.java.ssg.dto.Article;
 import com.sbs.java.ssg.util.Util;
 
-public class ArticleController {
+public class ArticleController extends Controller {
 	private Scanner sc;
 	private List<Article> articles;
+	private String command;
+	private String actionMethodName;
 
 	public ArticleController(Scanner sc, List<Article> articles) {
 		this.sc = sc;
 		this.articles = articles;
+		
+		switch (actionMethodName) {
+		case "write":
+			doWrite();
+			break;
+		case "list":
+			showList();
+			break;
+		case "detail":
+			showDetail();
+			break;
+		case "modify":
+			doModify();
+			break;
+		case "delete":
+			doDelete();
+			break;
+		}
+	}
+
+	public void doAction(String command, String actionMethodName) {
+		this.command = command;
+		this.actionMethodName = actionMethodName;
 	}
 
 	public void doWrite() {
@@ -29,7 +54,7 @@ public class ArticleController {
 		System.out.printf("%d번 글이 생성되었습니다.\n", id);
 	}
 
-	public void showList(String command) {
+	public void showList() {
 		if (articles.size() == 0) {
 			System.out.println("게시물이 없습니다.");
 			return;
@@ -63,7 +88,7 @@ public class ArticleController {
 
 	}
 
-	public void showDetail(String command) {
+	public void showDetail() {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
@@ -83,7 +108,7 @@ public class ArticleController {
 		System.out.printf("조회 : %s\n", foundArticle.hit);
 	}
 
-	public void doModify(String command) {
+	public void doModify() {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
@@ -107,7 +132,7 @@ public class ArticleController {
 		System.out.printf("%d번 게시물이 수정되었습니다.\n", id);
 	}
 
-	public void doDelete(String command) {
+	public void doDelete() {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
