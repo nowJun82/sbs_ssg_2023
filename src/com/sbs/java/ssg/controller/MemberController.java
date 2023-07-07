@@ -9,33 +9,13 @@ import com.sbs.java.ssg.util.Util;
 public class MemberController {
 	private Scanner sc;
 	private List<Member> members;
-	
-	public MemberController (Scanner sc, List<Member> members) {
+
+	public MemberController(Scanner sc, List<Member> members) {
 		this.sc = sc;
 		this.members = members;
 	}
-	
-	private int getMemberIndexByLoginId(String loginId) {
-		int i = 0;
-		for (Member member : members) {
-			if (member.loginId.equals(loginId)) {
-				return i;
-			}
-			i++;
-		}
-		return -1;
-	}
 
-	private boolean isJoinableLoginId(String loginId) {
-		int index = getMemberIndexByLoginId(loginId);
-
-		if (index == -1) {
-			return true;
-		}
-		return false;
-	}
-
-	public void dojoin() {
+	public void doJoin() {
 		int id = members.size() + 1;
 		String regDate = Util.getNowDateStr();
 
@@ -73,5 +53,25 @@ public class MemberController {
 		members.add(member);
 
 		System.out.printf("%d번 회원이 생성되었습니다. 환영합니다^^\n", id);
+	}
+
+	private int getMemberIndexByLoginId(String loginId) {
+		int i = 0;
+		for (Member member : members) {
+			if (member.loginId.equals(loginId)) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
+	}
+
+	private boolean isJoinableLoginId(String loginId) {
+		int index = getMemberIndexByLoginId(loginId);
+
+		if (index == -1) {
+			return true;
+		}
+		return false;
 	}
 }
