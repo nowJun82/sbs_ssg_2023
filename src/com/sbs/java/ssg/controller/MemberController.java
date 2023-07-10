@@ -12,7 +12,6 @@ public class MemberController extends Controller {
 	private List<Member> members;
 	private String command;
 	private String actionMethodName;
-	private Member loginedMember;
 
 	public MemberController(Scanner sc) {
 		this.sc = sc;
@@ -151,10 +150,6 @@ public class MemberController extends Controller {
 		loginedMember = member;
 
 		System.out.printf("로그인 성공! %s님 환영합니다!\n", loginedMember.name);
-	}
-
-	private boolean isLogined() {
-		return loginedMember != null;
 	}
 
 	private void doLogout() {
