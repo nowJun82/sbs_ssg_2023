@@ -35,6 +35,14 @@ public class MemberController extends Controller {
 			break;
 		}
 	}
+	
+	public void makeTestData() {
+		System.out.println("테스트를 위한 데이터를 생성합니다.");
+
+		members.add(new Member(1, Util.getNowDateStr(), "admin", "admin", "관리자"));
+		members.add(new Member(1, Util.getNowDateStr(), "user1", "user1", "유저1"));
+		members.add(new Member(1, Util.getNowDateStr(), "user2", "user2", "유저2"));
+	}
 
 	private int getMemberIndexByLoginId(String loginId) {
 		int i = 0;
