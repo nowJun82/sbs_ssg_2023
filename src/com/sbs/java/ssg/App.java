@@ -7,18 +7,18 @@ import com.sbs.java.ssg.controller.Controller;
 import com.sbs.java.ssg.controller.MemberController;
 
 public class App {
-	App() {
-	}
-
 	public void start() {
-		System.out.println("=== 프로그램 시작 ===");
+		System.out.println("== 프로그램 시작 ==");
+
 		Scanner sc = new Scanner(System.in);
+
 		MemberController memberController = new MemberController(sc);
 		ArticleController articleController = new ArticleController(sc);
-		articleController.makeTestData(); // 테스트 게시물 3개 작성
+
+		articleController.makeTestData();
 
 		while (true) {
-			System.out.printf("명령어 입력 : ");
+			System.out.printf("명령어) ");
 			String command = sc.nextLine();
 			command = command.trim();
 
@@ -30,29 +30,27 @@ public class App {
 				break;
 			}
 
-			String[] commandBits = command.split(" ");
+			String[] commandBits = command.split(" "); // article detail
 
 			if (commandBits.length == 1) {
-				System.out.println("존재하지 않는 명령어입니다.");
+				System.out.println("존재하지 않는 명령어 입니다.");
 				continue;
 			}
 
-			String controllerName = commandBits[0];
-			String actionMethodName = commandBits[1];
+			String controllerName = commandBits[0]; // article
+			String actionMethodName = commandBits[1]; // detail
+
 			Controller controller = null;
 
 			if (controllerName.equals("article")) {
 				controller = articleController;
 			} else if (controllerName.equals("member")) {
 				controller = memberController;
-			} else {
-				System.out.println("존재하지 않는 명령어입니다.");
-				continue;
 			}
 
 			controller.doAction(command, actionMethodName);
 		}
 		sc.close();
-		System.out.println("=== 프로그램 끝 ===");
+		System.out.println("== 프로그램 끝 ==");
 	}
 }
